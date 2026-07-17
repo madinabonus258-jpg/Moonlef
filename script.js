@@ -12,14 +12,10 @@ function openBook(button){
 
 }
 
-function openTopic(button) {
+function openTopic(button){
 
-const panel = button.parentElement.nextElementSibling;
+    let panel = button.parentElement.nextElementSibling;
 
-if (panel.style.display === "block") {
-panel.style.display = "none";
-} else {
-panel.style.display = "block";
-}
+    panel.classList.toggle("open");
 
 }
