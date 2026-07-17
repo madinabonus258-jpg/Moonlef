@@ -169,7 +169,14 @@ const questions = [
 ];
 
 let currentQuestion = 0;
-let score = 0;
+let levelScores = {
+    A1: 0,
+    A2: 0,
+    B1: 0,
+    B2: 0,
+    C1: 0,
+    C2: 0
+};
 let selectedAnswer = null;
 
 const questionNumber = document.getElementById("question-number");
@@ -230,12 +237,13 @@ nextButton.onclick=function(){
 
     }
 
-    if(selectedAnswer===questions[currentQuestion].correct){
+if(selectedAnswer===questions[currentQuestion].correct){
 
-        score++;
+    score++;
 
-    }
+    levelScores[questions[currentQuestion].level]++;
 
+}
     currentQuestion++;
 
     if(currentQuestion<questions.length){
@@ -244,10 +252,198 @@ nextButton.onclick=function(){
 
     }else{
 
-        localStorage.setItem("score",score);
+        localStorage.setItem("score", score);
 
-        location.href="result.html";
+localStorage.setItem("levelScores", JSON.stringify(levelScores));
+
+location.href = "result.html";
 
     }
 
 };
+
+/* ===== B2 ===== */
+
+{
+    level:"B2",
+    question:"By next year, I ____ university.",
+    answers:[
+        "finish",
+        "finished",
+        "will have finished",
+        "finishing"
+    ],
+    correct:2
+},
+
+{
+    level:"B2",
+    question:"The woman ____ lives next door is a doctor.",
+    answers:[
+        "who",
+        "which",
+        "where",
+        "whose"
+    ],
+    correct:0
+},
+
+{
+    level:"B2",
+    question:"He said he ____ tired.",
+    answers:[
+        "is",
+        "was",
+        "were",
+        "has"
+    ],
+    correct:1
+},
+
+{
+    level:"B2",
+    question:"Choose the correct collocation.",
+    answers:[
+        "make homework",
+        "do homework",
+        "build homework",
+        "create homework"
+    ],
+    correct:1
+},
+
+{
+    level:"B2",
+    question:"Despite the heavy rain, they ____ playing.",
+    answers:[
+        "continued",
+        "cancelled",
+        "avoided",
+        "stopped forever"
+    ],
+    correct:0
+},
+
+/* ===== C1 ===== */
+
+{
+    level:"C1",
+    question:"Hardly ____ the meeting started when the fire alarm rang.",
+    answers:[
+        "had",
+        "had the meeting",
+        "has",
+        "was"
+    ],
+    correct:1
+},
+
+{
+    level:"C1",
+    question:"Choose the best synonym for 'accurate'.",
+    answers:[
+        "exact",
+        "quick",
+        "rare",
+        "old"
+    ],
+    correct:0
+},
+
+{
+    level:"C1",
+    question:"She insisted ____ paying for dinner.",
+    answers:[
+        "on",
+        "in",
+        "at",
+        "with"
+    ],
+    correct:0
+},
+
+{
+    level:"C1",
+    question:"His explanation was so ____ that everyone understood immediately.",
+    answers:[
+        "lucid",
+        "vague",
+        "confusing",
+        "obscure"
+    ],
+    correct:0
+},
+
+{
+    level:"C1",
+    question:"Choose the best meaning of 'accurate'.",
+    answers:[
+        "exact",
+        "fast",
+        "difficult",
+        "late"
+    ],
+    correct:0
+},
+
+/* ===== C2 ===== */
+
+{
+    level:"C2",
+    question:"His comments were entirely ____ to the discussion.",
+    answers:[
+        "germane",
+        "ordinary",
+        "fragile",
+        "scarce"
+    ],
+    correct:0
+},
+
+{
+    level:"C2",
+    question:"If something costs 'an arm and a leg', it is...",
+    answers:[
+        "very expensive",
+        "very cheap",
+        "dangerous",
+        "free"
+    ],
+    correct:0
+},
+
+{
+    level:"C2",
+    question:"No sooner ____ home than the phone rang.",
+    answers:[
+        "had I arrived",
+        "I arrived",
+        "I had arrived",
+        "arrived I"
+    ],
+    correct:0
+},
+
+{
+    level:"C2",
+    question:"Choose the most appropriate academic sentence.",
+    answers:[
+        "The findings suggest that...",
+        "The results are cool.",
+        "It was really nice.",
+        "It kind of shows..."
+    ],
+    correct:0
+},
+
+{
+    level:"C2",
+    question:"Choose the meaning of 'ubiquitous'.",
+    answers:[
+        "Present everywhere",
+        "Ancient",
+        "Temporary",
+        "Rare"
+    ],
+    correct:0
+}
