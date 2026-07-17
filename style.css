@@ -146,6 +146,12 @@ button:hover{
     background:linear-gradient(145deg,#6a523c,#493625);
 }
 
+.books {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
 /* ===== LESSON PANEL ===== */
 
 .lesson-panel{
