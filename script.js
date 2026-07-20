@@ -27,3 +27,24 @@ function toggleLesson(){
     lesson.classList.toggle("show");
 
 }
+
+
+const answerButtons = document.querySelectorAll(".answer-btn");
+
+answerButtons.forEach(button => {
+
+    button.addEventListener("click", function(){
+
+        const group = button.parentElement;
+
+        group.querySelectorAll(".answer-btn").forEach(btn => {
+
+            btn.classList.remove("selected");
+
+        });
+
+        button.classList.add("selected");
+
+    });
+
+});
