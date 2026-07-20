@@ -29,22 +29,18 @@ function toggleLesson(){
 }
 
 
-const answerButtons = document.querySelectorAll(".answer-btn");
+document.addEventListener("click", function(e){
 
-answerButtons.forEach(button => {
+    if(!e.target.classList.contains("answer-btn")) return;
 
-    button.addEventListener("click", function(){
+    const group = e.target.parentElement;
 
-        const group = button.parentElement;
+    group.querySelectorAll(".answer-btn").forEach(btn=>{
 
-        group.querySelectorAll(".answer-btn").forEach(btn => {
-
-            btn.classList.remove("selected");
-
-        });
-
-        button.classList.add("selected");
+        btn.classList.remove("selected");
 
     });
+
+    e.target.classList.add("selected");
 
 });
