@@ -442,3 +442,63 @@ footer h3{
     font-weight:600;
 
 }
+
+
+.lesson-content{
+
+    display:none;
+
+    background:#fffdf8;
+
+    padding:30px;
+
+    margin-top:-10px;
+
+    margin-bottom:30px;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.lesson-content.show{
+
+    display:block;
+
+}
+
+.lesson-content h2{
+
+    font-family:'Playfair Display',serif;
+
+    margin-bottom:20px;
+
+}
+
+.lesson-content table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin:20px 0;
+
+}
+
+.lesson-content th,
+.lesson-content td{
+
+    border:1px solid #ddd;
+
+    padding:12px;
+
+    text-align:center;
+
+}
+
+.lesson-content th{
+
+    background:#e8d29a;
+
+}
