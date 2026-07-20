@@ -502,3 +502,20 @@ footer h3{
     background:#e8d29a;
 
 }
+
+
+.answer-btn{
+
+    margin:5px;
+
+    transition:.3s;
+
+}
+
+.answer-btn.selected{
+
+    background:#7aa874;
+
+    color:white;
+
+}
