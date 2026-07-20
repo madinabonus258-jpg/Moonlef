@@ -358,67 +358,95 @@ footer h3{
 }
 
 
-/* ===== LESSON ===== */
+/* ===== Grammar Chapters ===== */
 
-.lesson{
+.grammar-library{
 
     width:90%;
     max-width:900px;
 
     margin:60px auto;
 
-    background:#fffdf8;
+}
 
-    padding:50px;
+.grammar-library h2{
 
-    border-radius:30px;
+    text-align:center;
 
-    box-shadow:0 15px 35px rgba(0,0,0,.08);
+    margin-bottom:40px;
 
-    line-height:1.8;
+    font-family:'Playfair Display',serif;
 
 }
 
-.lesson h2,
-.lesson h3{
+.chapter-card{
+
+    background:#fffdf8;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    margin-bottom:20px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.chapter-card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.chapter-card h3{
 
     font-family:'Playfair Display',serif;
 
     color:#31543d;
 
-    margin:25px 0 15px;
+}
+
+.chapter-card p{
+
+    margin:10px 0;
+
+    color:#617563;
 
 }
 
-.lesson table{
+.completed{
 
-    width:100%;
+    color:#4f7d45;
 
-    border-collapse:collapse;
-
-    margin:20px 0;
+    font-weight:600;
 
 }
 
-.lesson th,
-.lesson td{
+.progress{
 
-    border:1px solid #ddd;
+    color:#9d8a2e;
 
-    padding:12px;
-
-    text-align:center;
+    font-weight:600;
 
 }
 
-.lesson th{
+.locked{
 
-    background:#e8d29a;
+    opacity:.6;
+
+    cursor:not-allowed;
 
 }
 
-.lesson ol{
+.locked-text{
 
-    margin-left:25px;
+    color:#888;
+
+    font-weight:600;
 
 }
