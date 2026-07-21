@@ -66,9 +66,61 @@ function finishChapter(){
 
 function checkAnswers(){
 
-    document.getElementById("practice-result").innerHTML =
-    "⭐ 5 / 5 <br> 🌸 +10 Peonies";
+    let score = 0;
 
-    document.getElementById("finish-btn").disabled = false;
+    const groups = document.querySelectorAll(".answer-group");
+
+    groups.forEach(group=>{
+
+        const correct = group.dataset.answer;
+
+        const selected =
+        group.querySelector(".selected");
+
+        group.querySelectorAll(".answer-btn").forEach(btn=>{
+
+            btn.style.background = "";
+            btn.style.color = "";
+
+        });
+
+        if(selected){
+
+            if(selected.textContent === correct){
+
+                score++;
+
+                selected.style.background = "#8FCB81";
+                selected.style.color = "white";
+
+            }
+
+            else{
+
+                selected.style.background = "#E67C73";
+                selected.style.color = "white";
+
+            }
+
+        }
+
+    });
+
+    const result =
+    document.getElementById("practice-result");
+
+    result.innerHTML =
+    `⭐ Score: ${score} / ${groups.length}`;
+
+    if(score >= 4){
+
+        result.innerHTML +=
+        "<br>🌸 +10 Peonies";
+
+        document
+        .getElementById("finish-btn")
+        .disabled = false;
+
+    }
 
 }
