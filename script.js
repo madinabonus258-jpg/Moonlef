@@ -12,28 +12,220 @@ function openBook(button){
 
 }
 
-function openTopic(button){
+// ========================================
+// Moonleaf Script
+// Part 1
+// ========================================
 
-    let panel = button.parentElement.nextElementSibling;
+const chapterList = document.getElementById("chapter-list");
+const lessonContainer = document.getElementById("lesson-container");
 
-    panel.classList.toggle("open");
+// ===============================
+// Create Chapters
+// ===============================
+
+function createChapters() {
+
+    if (!chapterList) return;
+
+    chapterList.innerHTML = "";
+
+    chapters.forEach(chapter => {
+
+        const card = document.createElement("div");
+
+        card.className = "chapter-card";
+
+        card.innerHTML = `
+            <h3>📖 Chapter ${chapter.id}</h3>
+
+            <p>${chapter.title}</p>
+
+            <span class="${chapter.status === "opened" ? "opened-text" : "locked-text"}">
+                ${chapter.status === "opened" ? "📖 Opened" : "🔒 Locked"}
+            </span>
+        `;
+
+        if (chapter.status === "opened") {
+
+            card.addEventListener("click", () => {
+
+                openLesson(chapter.id);
+
+            });
+
+        }
+
+        chapterList.appendChild(card);
+
+    });
 
 }
 
-function toggleLesson(){
+// ===============================
+// Open Lesson
+// ===============================
 
-    const lesson = document.getElementById("lesson1");
+function openLesson(id){
 
-    lesson.classList.toggle("show");
+    const lesson = lessons[id];
+
+    if(!lesson){
+
+        lessonContainer.innerHTML = `
+            <h2>Lesson not found</h2>
+        `;
+
+        return;
+
+    }
+
+    lessonContainer.innerHTML = `
+
+        <div class="lesson-content show">
+
+            <h2>${lesson.title}</h2>
+
+            ${lesson.intro}
+
+            <hr>
+
+            ${lesson.theory}
+
+            <hr>
+
+            ${lesson.examples}
+
+            <hr>
+
+            ${lesson.tips}
+
+            <hr>
+
+            ${lesson.mistakes}
+
+            <hr>
+
+            ${lesson.summary}
+
+            <hr>
+
+            <div id="practice"></div>
+
+            <br>
+
+            <div class="lesson-buttons">
+
+                <button
+                    class="check-btn"
+                    onclick="checkAnswers()">
+
+                    ✅ Check Answers
+
+                </button>
+
+                <button
+class="finish-btn"
+id="finish-btn"
+onclick="finishChapter()"
+disabled>
+
+🌸 Finish Chapter
+
+</button>
+
+            </div>
+
+            <p id="practice-result"></p>
+
+        </div>
+
+    `;
+
+    createPractice(id);
 
 }
 
+// ===============================
+// Start
+// ===============================
 
-document.addEventListener("click", function(e){
+createChapters();
 
-    if(!e.target.classList.contains("answer-btn")) return;
 
-    const group = e.target.parentElement;
+// ===============================
+// Create Practice
+// ===============================
+
+function createPractice(id){
+
+    const lesson = lessons[id];
+
+    const practice = document.getElementById("practice");
+
+    if(!lesson.practice || lesson.practice.length === 0){
+
+        practice.innerHTML = "<p>No practice yet.</p>";
+
+        return;
+
+    }
+
+    let html = "<h3>🎯 Practice</h3>";
+
+    lesson.practice.forEach((question,index)=>{
+
+        html += `
+
+        <div class="practice-question">
+
+            <p>${index+1}. ${question.question}</p>
+
+            <div
+                class="answer-group"
+                data-answer="${question.correct}">
+
+        `;
+
+        question.answers.forEach((answer,i)=>{
+
+            html += `
+
+                <button
+                    class="answer-btn"
+                    onclick="selectAnswer(this)">
+
+                    ${answer}
+
+                </button>
+
+            `;
+
+        });
+
+        html += `
+
+            </div>
+
+            <br>
+
+        </div>
+
+        `;
+
+    });
+
+    practice.innerHTML = html;
+
+}
+
+// ===============================
+// Select Answer
+// ===============================
+
+function selectAnswer(button){
+
+    const group = button.parentElement;
 
     group.querySelectorAll(".answer-btn").forEach(btn=>{
 
@@ -41,32 +233,13 @@ document.addEventListener("click", function(e){
 
     });
 
-    e.target.classList.add("selected");
-
-});
-
-console.log("Script loaded!");
-
-document.querySelectorAll(".answer-btn").forEach(button => {
-
-    button.onclick = function(){
-
-        console.log("Clicked:", button.textContent);
-
-    };
-
-});
-
-
-function finishChapter(){
-
-    localStorage.setItem("A1_Chapter1", "completed");
-
-    alert("🎉 Chapter I Completed!");
-
-    location.reload();
+    button.classList.add("selected");
 
 }
+
+// ===============================
+// Check Answers
+// ===============================
 
 function checkAnswers(){
 
@@ -76,35 +249,43 @@ function checkAnswers(){
 
     groups.forEach(group=>{
 
-        const correct = group.dataset.answer;
+        const correct =
+        Number(group.dataset.answer);
 
-        const selected =
-        group.querySelector(".selected");
+        const buttons =
+        group.querySelectorAll(".answer-btn");
 
-        group.querySelectorAll(".answer-btn").forEach(btn=>{
+        let selected = -1;
 
-            btn.style.background = "";
-            btn.style.color = "";
+        buttons.forEach((button,index)=>{
+
+            button.style.background = "";
+            button.style.color = "";
+
+            if(button.classList.contains("selected")){
+
+                selected = index;
+
+            }
 
         });
 
-        if(selected){
+        if(selected === correct){
 
-            if(selected.textContent === correct){
+            score++;
 
-                score++;
+            buttons[selected].style.background="#8FCB81";
+            buttons[selected].style.color="white";
 
-                selected.style.background = "#8FCB81";
-                selected.style.color = "white";
+        }
 
-            }
+        else if(selected !== -1){
 
-            else{
+            buttons[selected].style.background="#E67C73";
+            buttons[selected].style.color="white";
 
-                selected.style.background = "#E67C73";
-                selected.style.color = "white";
-
-            }
+            buttons[correct].style.background="#8FCB81";
+            buttons[correct].style.color="white";
 
         }
 
@@ -114,9 +295,9 @@ function checkAnswers(){
     document.getElementById("practice-result");
 
     result.innerHTML =
-    `⭐ Score: ${score} / ${groups.length}`;
+    `⭐ Score: ${score}/${groups.length}`;
 
-    if(score >= 4){
+    if(score === groups.length){
 
         result.innerHTML +=
         "<br>🌸 +10 Peonies";
@@ -129,31 +310,17 @@ function checkAnswers(){
 
 }
 
+// ===============================
+// Finish Chapter
+// ===============================
 
-function loadProgress(){
+function finishChapter(){
 
-    const chapter1 = localStorage.getItem("A1_Chapter1");
+    localStorage.setItem(
+        "chapter1",
+        "completed"
+    );
 
-    if(chapter1 === "completed"){
-
-        document.querySelector(".opened-text").textContent =
-        "✅ Completed";
-
-        const chapter2 =
-        document.querySelectorAll(".chapter-card")[1];
-
-        chapter2.innerHTML = `
-
-        <h3>📖 Chapter II</h3>
-
-        <span class="opened-text">
-        📖 Opened
-        </span>
-
-        `;
-
-    }
+    alert("🎉 Chapter I Completed!");
 
 }
-
-loadProgress();
