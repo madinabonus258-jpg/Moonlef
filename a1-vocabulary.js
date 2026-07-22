@@ -63,3 +63,52 @@ tips: [
 }
 
 };
+
+dialogue: `
+
+<p><b>Anna:</b> Hello!</p>
+
+<p><b>Tom:</b> Hi!</p>
+
+<p><b>Anna:</b> What's your name?</p>
+
+<p><b>Tom:</b> My name is Tom.</p>
+
+<p><b>Anna:</b> Nice to meet you!</p>
+
+<p><b>Tom:</b> Nice to meet you too!</p>
+
+`,
+
+mistakes: [
+
+{
+wrong: "Good night! (when meeting someone)",
+correct: "Good evening!"
+},
+
+{
+wrong: "My name Tom.",
+correct: "My name is Tom."
+},
+
+{
+wrong: "I fine.",
+correct: "I'm fine."
+}
+
+],
+
+summary: [
+
+"👋 Greet people politely.",
+
+"😊 Ask 'How are you?'",
+
+"🙋 Introduce yourself.",
+
+"🙏 Say 'Thank you'.",
+
+"👋 Say goodbye politely."
+
+]
