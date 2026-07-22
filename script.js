@@ -10,30 +10,26 @@ function openBook(button){
 
     panel.classList.toggle("show");
 
-}
 
 // =======================================
 // Moonleaf Vocabulary Script
 // =======================================
 
+
 // Open lesson
-
-function openLesson(id) {
-
-    console.log("Clicked chapter:", id);
-    console.log(vocabularyLessons);
-
-    const lesson = vocabularyLessons[id];
-
 function openLesson(id) {
 
     const lesson = vocabularyLessons[id];
     const container = document.getElementById("lesson-container");
 
+
     if (!lesson) {
-        container.innerHTML = "<h2>Lesson not found.</h2>";
+        container.innerHTML = `
+        <h2>❌ Lesson not found.</h2>
+        `;
         return;
     }
+
 
     let vocabularyRows = "";
 
@@ -49,47 +45,64 @@ function openLesson(id) {
 
     });
 
+
+
     let tips = "";
 
     lesson.tips.forEach(tip => {
 
-        tips += `<p>✅ ${tip}</p>`;
-
-    });
-
-    let mistakes = "";
-
-    lesson.mistakes.forEach(mistake => {
-
-        mistakes += `
-        <li>❌ ${mistake.wrong}</li>
-        <li>✅ ${mistake.correct}</li>
-        <br>
+        tips += `
+        <p>🌱 ${tip}</p>
         `;
 
     });
 
-    let summary = "";
 
-    lesson.summary.forEach(point => {
 
-        summary += `<p>${point}</p>`;
+    let mistakes = "";
+
+    lesson.mistakes.forEach(item => {
+
+        mistakes += `
+        <li>
+            ❌ ${item.wrong}
+            <br>
+            ✅ ${item.correct}
+        </li>
+        `;
 
     });
+
+
+
+    let summary = "";
+
+    lesson.summary.forEach(item => {
+
+        summary += `
+        <p>${item}</p>
+        `;
+
+    });
+
+
 
     container.innerHTML = `
 
     <div class="lesson-content">
 
+
         <h2>${lesson.title}</h2>
 
-        <p class="lesson-intro">
-            ${lesson.description}
-        </p>
+
+        ${lesson.description}
+
 
         <hr>
 
+
         <h3>📚 Vocabulary</h3>
+
 
         <table>
 
@@ -103,70 +116,96 @@ function openLesson(id) {
 
         </table>
 
-        <hr>
 
-        <h3>💬 Example Dialogue</h3>
-
-        ${lesson.dialogue}
 
         <hr>
+
+
+
+        <h3>💬 Dialogue</h3>
+
+        <div class="dialogue-box">
+            ${lesson.dialogue}
+        </div>
+
+
+
+        <hr>
+
+
 
         <h3>💡 Tips</h3>
 
         <div class="tip-box">
-
             ${tips}
-
         </div>
 
+
+
         <hr>
+
+
 
         <h3>⚠ Common Mistakes</h3>
 
         <ul>
-
             ${mistakes}
-
         </ul>
 
+
+
         <hr>
+
+
 
         <h3>📝 Summary</h3>
 
         <div class="summary-box">
-
             ${summary}
-
         </div>
+
+
 
         <br>
 
-        <div class="lesson-buttons">
 
-            <button
-                class="finish-btn"
-                onclick="finishChapter(${id})">
+        <button 
+        class="finish-btn"
+        onclick="finishChapter(${id})">
 
-                🌸 Finish Chapter
+        🌸 Finish Chapter
 
-            </button>
+        </button>
 
-        </div>
 
     </div>
 
     `;
 
+
+    // плавная прокрутка к уроку
+    container.scrollIntoView({
+        behavior: "smooth"
+    });
+
 }
 
-// =======================================
+
+
+
+
 // Finish Chapter
-// =======================================
 
 function finishChapter(id) {
 
-    localStorage.setItem(`VocabularyChapter${id}`, "completed");
+
+    localStorage.setItem(
+        `VocabularyChapter${id}`,
+        "completed"
+    );
+
 
     alert("🎉 Chapter Completed!");
+
 
 }
