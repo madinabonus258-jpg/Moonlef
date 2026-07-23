@@ -255,3 +255,6 @@ function unlockNextChapter(id) {
     }
 
 }
+
+
+alert("script.js loaded");
